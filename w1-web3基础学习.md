@@ -165,4 +165,12 @@ contract MyToken is ERC20, Ownable {
 }
 ```
 ### 2.2 Sepolia测试网合约部署发币
+按照图中，切换env为sepolia测试网，并且钱包切换到sepolia测试网中，点击deploy即可（注意需要使用水龙头获取测试币，否则无法实现发币操作）
+![alt text](./imgs/image.png)
 
+### 2.3 交易所添加流动性，并上架
+- 前往[uniswap官网](https://app.uniswap.org/)
+  
+- 在[钱包] -> [活动] 中查看部署的代币，进入交易浏览器查看代币的合约地址，你可以通过这个地址在你的钱包中添加这个代币，同时可以通过这个代币地址添加流动性
+- uniswap连接钱包, 连接钱包后，点击设置，打开测试网模式
+- [uniswap添加流动性](https://app.uniswap.org/positions/create?currencyA=NATIVE&currencyB=undefined&chain=ethereum_sepolia&fee=undefined&hook=undefined&priceRangeState={%22priceInverted%22:false,%22fullRange%22:false,%22initialPrice%22:%22%22,%22inputMode%22:%22price%22}&depositState={%22exactField%22:%22TOKEN0%22,%22exactAmounts%22:{}})：可以输入代币的合约地址添加流动性
