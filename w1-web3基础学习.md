@@ -174,3 +174,87 @@ contract MyToken is ERC20, Ownable {
 - 在[钱包] -> [活动] 中查看部署的代币，进入交易浏览器查看代币的合约地址，你可以通过这个地址在你的钱包中添加这个代币，同时可以通过这个代币地址添加流动性
 - uniswap连接钱包, 连接钱包后，点击设置，打开测试网模式
 - [uniswap添加流动性](https://app.uniswap.org/positions/create?currencyA=NATIVE&currencyB=undefined&chain=ethereum_sepolia&fee=undefined&hook=undefined&priceRangeState={%22priceInverted%22:false,%22fullRange%22:false,%22initialPrice%22:%22%22,%22inputMode%22:%22price%22}&depositState={%22exactField%22:%22TOKEN0%22,%22exactAmounts%22:{}})：可以输入代币的合约地址添加流动性
+## 3. NFT发行
+### 3.1 工具准备
+- [Remix](https://remix.ethereum.org/#lang=en&optimize&runs=200&evmVersion&version=soljson-v0.8.34+commit.80d5c536.js)
+- [Pinta](https://pinata.cloud/): IPFS存储服务
+- [OpenSea](https://opensea.io/): NFT市场
+# 3.2 NFT合约开发
+- Remix开发NFT合约：
+```solidity
+// SPDX-License-Identifier: MIT
+// Compatible with OpenZeppelin Contracts ^5.5.0
+pragma solidity ^0.8.27;
+
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC721, ERC721URIStorage, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyNFT", "MNFT")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to, string memory uri)
+        public
+        onlyOwner
+        returns (uint256)
+    {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+        return tokenId;
+    }
+
+    // The following functions are overrides required by Solidity.
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+}
+```
+- 连接MetaMask到测试网
+
+- 部署合约
+- 记录合约地址<0xe28ef20094ce67c345f59e4298e65d30bff10648>
+
+# 3.3 NFT元数据准备
+- 元数据准备
+```json
+{
+  "name": "我的第一个NFT",
+  "description": "这是一个独特的数字艺术品",
+  "image": "https://gateway.pinata.cloud/ipfs/bafybeiaugjb33rmv7yoj2ug4lywhgfx2nbttexhz7hib7zqx7pp7htdqka",
+  "attributes": [
+    {
+      "trait_type": "颜色",
+      "value": "蓝色"
+    },
+    {
+      "trait_type": "稀有度",
+      "value": "稀有"
+    }
+  ]
+}
+```
+- 注册 Pinata 账户
+- 上传图片文件到IPFS
+- 上传元数据JSON文件
+- 记录IPFS哈希值
