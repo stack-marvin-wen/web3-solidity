@@ -70,5 +70,4 @@ func main() {
 	fmt.Println(emp.Person.GetInfo())
 	fmt.Println(emp.GetInfo())
 	fmt.Println(emp.Name)
-
 }
