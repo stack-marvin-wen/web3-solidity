@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
  * 02-control-flow.go
@@ -110,9 +112,105 @@ func for_loop() {
 		fmt.Printf("index: %d, value: %d\n", index, value)
 	}
 }
+func defer_statement() {
+	fmt.Println("\n=== defer示例 ===")
+	// 基本defer
+	fmt.Println("1. 基本defer,延迟执行到函数返回前:")
+	defer fmt.Println("defer语句被执行了")
+	fmt.Println("函数正在执行中...")
+	// 多个defer执行顺序(LIFO)
+	defer fmt.Println("defer语句2")
+	defer fmt.Println("defer语句3")
+	fmt.Println("函数执行结束")
+	// defer在return之后执行
+	fmt.Println("2. defer在return之后执行:")
+	fmt.Println("函数正在执行中...")
+	fmt.Println(returnWithDefer())
+	// defer在捕获变量的时机
+	deferValueCapture()
+	// defer在闭包捕获最终值
+	deferClosureDemo()
+	// defer在panic之后也会执行
+	deferPanicDemo()
+	// defer用于资源清理
+	deferResourceCleanup()
+}
+func deferResourceCleanup() {
+	fmt.Println("\n=== defer用于资源清理示例 ===")
+	// 模拟打开一个资源
+	if err := mockReadFile("02-control-flow.go"); err != nil {
+		fmt.Printf("  错误: %v\n", err)
+	}
+	if err := mockReadFile("nonexistent.txt"); err != nil {
+		fmt.Printf("  错误: %v\n", err)
+	}
+}
 
+// mockReadFile 模拟文件读取，演示defer资源清理
+func mockReadFile(filename string) error {
+	fmt.Printf("  打开文件: %s\n", filename)
+	defer fmt.Printf("  关闭文件: %s\n", filename)
+	if filename == "nonexistent.txt" {
+		return fmt.Errorf("文件不存在")
+	}
+	fmt.Printf("  读取文件内容: %s\n", filename)
+	return nil
+}
+func deferPanicDemo() {
+	fmt.Println("\n=== defer在panic之后执行示例 ===")
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("defer捕获到panic: %v\n", r)
+		}
+	}()
+	panic("发生了一个错误")
+}
+func deferClosureDemo() {
+	fmt.Println("\n=== defer闭包捕获变量示例 ===")
+	x := 10
+	defer func() {
+		fmt.Printf("defer捕获的x值: %d\n", x)
+	}()
+	x++
+	fmt.Printf("修改后的x值: %d\n", x)
+}
+func deferValueCapture() {
+	fmt.Println("\n=== defer捕获变量示例 ===")
+	x := 10
+	x++
+	defer fmt.Printf("defer捕获的x值: %d\n", x)
+	x++
+	fmt.Printf("修改后的x值: %d\n", x)
+}
+func returnWithDefer() int {
+	defer fmt.Println("  defer: 在return之后执行")
+	fmt.Println("  return: 先准备返回值")
+	return 42
+}
+
+func panic_statement() {
+	fmt.Println("\n=== panic示例 ===")
+	panic_recover()
+	panic_norecover()
+}
+func panic_norecover() {
+	fmt.Println("\n=== panic不恢复示例 ===")
+	panic("发生一个错误")
+	fmt.Println("这行代码不执行")
+}
+func panic_recover() {
+	fmt.Println("\n=== panic恢复示例 ===")
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("panic被恢复:", r)
+		}
+	}()
+	panic("发生一个错误")
+}
 func main() {
 	if_statement()
 	switch_statement()
 	for_loop()
+	defer_statement()
+	panic_statement()
 }
