@@ -8,12 +8,21 @@
   - [1.1 安装与配置 Metamask](#11-安装与配置-metamask)
   - [1.2 创建钱包](#12-创建钱包)
   - [1.3 自定义添加网络](#13-自定义添加网络)
-    - [X Layer 测试网添加](#1-x-layer-测试网添加)
-    - [Sepolia 测试网添加](#2-sepolia-测试网添加)
+    - [1.3.1 X Layer 测试网添加](#131-x-layer-测试网添加)
+    - [1.3.2 Sepolia 测试网添加](#132-sepolia-测试网添加)
   - [1.4 测试币领取](#14-测试币领取)
+    - [1.4.1 X Layer 测试网](#141-x-layer-测试网)
+    - [1.4.2 Sepolia 测试网](#142-sepolia-测试网)
   - [1.5 安全注意事项](#15-安全注意事项)
   - [1.6 常见问题](#16-常见问题)
 - [2. 如何发币](#2-如何发币)
+  - [2.1 Remix 开发代币合约](#21-remix-开发代币合约)
+  - [2.2 Sepolia 测试网合约部署发币](#22-sepolia-测试网合约部署发币)
+  - [2.3 交易所添加流动性，并上架](#23-交易所添加流动性并上架)
+- [3. NFT发行](#3-nft发行)
+  - [3.1 工具准备](#31-工具准备)
+  - [3.2 NFT合约开发](#32-nft合约开发)
+  - [3.3 NFT元数据准备](#33-nft元数据准备)
 
 ---
 
@@ -63,9 +72,7 @@
   - 区块浏览器 URL：https://ropsten.etherscan.io  
   添加后即可在 Metamask 上切换到 Ropsten 测试网进行测试。
 
----
-
-#### 1. X Layer 测试网添加
+#### 1.3.1 X Layer 测试网添加
 
 - 说明：  
   X Layer 测试网是 X Layer 区块链项目提供的测试环境，开发者可以在该网络上免费测试合约部署、转账等功能，不会影响主网资产。适用于 X Layer 生态的 DApp 开发和调试。
@@ -81,9 +88,7 @@
      - 区块浏览器 URL：https://explorer-testnet.xlayer.tech
   4. 点击“保存”，即可切换到 X Layer 测试网。
 
----
-
-#### 2. Sepolia 测试网添加
+#### 1.3.2 Sepolia 测试网添加
 
 - 说明：  
   Sepolia 测试网是以太坊官方维护的测试网络之一，主要用于开发者测试智能合约和 DApp。与主网环境一致，但使用测试币，无需真实资产，适合开发和学习阶段使用。
@@ -99,21 +104,29 @@
      - 区块浏览器 URL：https://sepolia.etherscan.io
   4. 点击“保存”，即可切换到 Sepolia 测试网。
 
+---
+
 ### 1.4 测试币领取
-#### 1. X Layer 测试网
+
+#### 1.4.1 X Layer 测试网
+
 - 切换到X Layer测试网
-- 访问[X Layer水龙头](https://web3.okx.com/zh-hans/xlayer/faucet/xlayerfaucet)
+- 访问 [X Layer水龙头](https://web3.okx.com/zh-hans/xlayer/faucet/xlayerfaucet)
 - 输入钱包地址
 - 完成验证码
 - 等待测试币到账
-#### 2. Sepolia测试网
+
+#### 1.4.2 Sepolia测试网
+
 - 切换到Sepolia网络
-- 访问[Sepolia水龙头](https://www.alchemy.com/faucets/ethereum-sepolia)
+- 访问 [Sepolia水龙头](https://www.alchemy.com/faucets/ethereum-sepolia)
 - 连接钱包或输入地址
 - 获取测试币
 
+---
 
 ### 1.5 安全注意事项
+
 - 助记词安全
     - 永远不要在线存储助记词
     - 不要截图或拍照保存
@@ -129,7 +142,11 @@
     - 设置合理的Gas费用
     - 小额测试后再进行大额交易
     - 定期备份钱包
+
+---
+
 ### 1.6 常见问题
+
 - 交易失败
     - 检查Gas费用是否足够
     - 确认网络连接正常
@@ -141,9 +158,15 @@
 - 忘记密码
     - 使用助记词重新导入钱包
     - 密码无法恢复，只能重置
+
+---
+
 ## 2. 如何发币
-### 2.1 [remix](https://remix.ethereum.org/)开发代币合约
+
+### 2.1 Remix 开发代币合约
+
 - 创建文件 MyToken.sol，填写如下代码
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -164,23 +187,39 @@ contract MyToken is ERC20, Ownable {
     }
 }
 ```
-### 2.2 Sepolia测试网合约部署发币
-按照图中，切换env为sepolia测试网，并且钱包切换到sepolia测试网中，点击deploy即可（注意需要使用水龙头获取测试币，否则无法实现发币操作）
-![alt text](./imgs/image.png)
 
-### 2.3 交易所添加流动性，并上架
-- 前往[uniswap官网](https://app.uniswap.org/)
-  
+---
+
+### 2.2 Sepolia 测试网合约部署发币
+
+- 按照图中，切换env为sepolia测试网，并且钱包切换到sepolia测试网中，点击deploy即可（注意需要使用水龙头获取测试币，否则无法实现发币操作）
+- ![alt text](./imgs/image.png)
+
+---
+
+### 2.3 交易所添加流动性并上架
+
+- 前往 [uniswap官网](https://app.uniswap.org/)
 - 在[钱包] -> [活动] 中查看部署的代币，进入交易浏览器查看代币的合约地址，你可以通过这个地址在你的钱包中添加这个代币，同时可以通过这个代币地址添加流动性
 - uniswap连接钱包, 连接钱包后，点击设置，打开测试网模式
 - [uniswap添加流动性](https://app.uniswap.org/positions/create?currencyA=NATIVE&currencyB=undefined&chain=ethereum_sepolia&fee=undefined&hook=undefined&priceRangeState={%22priceInverted%22:false,%22fullRange%22:false,%22initialPrice%22:%22%22,%22inputMode%22:%22price%22}&depositState={%22exactField%22:%22TOKEN0%22,%22exactAmounts%22:{}})：可以输入代币的合约地址添加流动性
+
+---
+
 ## 3. NFT发行
+
 ### 3.1 工具准备
+
 - [Remix](https://remix.ethereum.org/#lang=en&optimize&runs=200&evmVersion&version=soljson-v0.8.34+commit.80d5c536.js)
-- [Pinta](https://pinata.cloud/): IPFS存储服务
+- [Pinata](https://pinata.cloud/): IPFS存储服务
 - [OpenSea](https://opensea.io/): NFT市场
-# 3.2 NFT合约开发
+
+---
+
+### 3.2 NFT合约开发
+
 - Remix开发NFT合约：
+
 ```solidity
 // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.5.0
@@ -230,13 +269,17 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
     }
 }
 ```
+
 - 连接MetaMask到测试网
-
 - 部署合约
-- 记录合约地址<0xe28ef20094ce67c345f59e4298e65d30bff10648>
+- 记录合约地址 `<0xe28ef20094ce67c345f59e4298e65d30bff10648>`
 
-# 3.3 NFT元数据准备
+---
+
+### 3.3 NFT元数据准备
+
 - 元数据准备
+
 ```json
 {
   "name": "我的第一个NFT",
@@ -254,6 +297,7 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
   ]
 }
 ```
+
 - 注册 Pinata 账户
 - 上传图片文件到IPFS
 - 上传元数据JSON文件
