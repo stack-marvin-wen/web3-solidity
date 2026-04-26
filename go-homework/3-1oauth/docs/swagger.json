@@ -1,0 +1,23 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "带 OAuth2 验证的 API 示例",
+        "title": "OAuth Demo API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {},
+    "securityDefinitions": {
+        "OAuth2Password": {
+            "type": "oauth2",
+            "flow": "password",
+            "tokenUrl": "http://localhost:8080/user/login",
+            "scopes": {
+                "read": "Grants read access",
+                "write": "Grants write access"
+            }
+        }
+    }
+}
