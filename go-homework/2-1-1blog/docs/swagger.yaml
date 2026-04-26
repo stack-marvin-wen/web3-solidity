@@ -1,0 +1,383 @@
+basePath: /
+definitions:
+  view.CreateArticleRequest:
+    properties:
+      content:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - content
+    - tags
+    - title
+    - user_id
+    type: object
+  view.CreateTagRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  view.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  view.UpdateArticleRequest:
+    properties:
+      content:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - content
+    - tags
+    - title
+    - user_id
+    type: object
+  view.UpdateTagRequest:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  view.UpdateUserRequest:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - id
+    - name
+    - password
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Blog 后台接口文档
+  title: Blog API
+  version: "1.0"
+paths:
+  /articles:
+    post:
+      consumes:
+      - application/json
+      description: 创建新文章
+      parameters:
+      - description: 文章信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/view.CreateArticleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 创建文章
+      tags:
+      - 文章
+  /articles/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 根据ID删除文章
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 删除文章
+      tags:
+      - 文章
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取文章信息
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取文章
+      tags:
+      - 文章
+    put:
+      consumes:
+      - application/json
+      description: 根据ID更新文章信息
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 文章信息
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/view.UpdateArticleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 更新文章
+      tags:
+      - 文章
+  /tags:
+    post:
+      consumes:
+      - application/json
+      description: 标签相关接口，包括创建、查询、更新和删除标签
+      parameters:
+      - description: 标签信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/view.CreateTagRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 标签相关接口
+      tags:
+      - 标签
+    put:
+      consumes:
+      - application/json
+      description: 更新标签信息
+      parameters:
+      - description: 标签信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/view.UpdateTagRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 更新标签
+      tags:
+      - 标签
+  /tags/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 根据ID删除标签
+      parameters:
+      - description: 标签ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 删除标签
+      tags:
+      - 标签
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取标签信息
+      parameters:
+      - description: 标签ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取标签
+      tags:
+      - 标签
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: 创建新用户
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/view.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 创建用户
+      tags:
+      - 用户
+    put:
+      consumes:
+      - application/json
+      description: 更新用户信息
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/view.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 更新用户
+      tags:
+      - 用户
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除用户
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 删除用户
+      tags:
+      - 用户
+    get:
+      consumes:
+      - application/json
+      description: 根据用户ID查询用户信息
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 根据ID获取用户
+      tags:
+      - 用户
+  /users/querybyemail:
+    get:
+      consumes:
+      - application/json
+      description: 根据邮箱查询用户信息
+      parameters:
+      - description: 用户邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 根据邮箱获取用户
+      tags:
+      - 用户
+swagger: "2.0"

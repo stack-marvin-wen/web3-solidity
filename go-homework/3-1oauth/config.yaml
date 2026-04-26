@@ -1,0 +1,10 @@
+db:
+  dbname: "blogdb"
+  username: "bloguser"
+  password: "blogpass"
+  host: "localhost"
+  port: "3306"
+  charset: "utf8mb4"
+jwt:
+  secret: "web3"
+  expired_time: 12

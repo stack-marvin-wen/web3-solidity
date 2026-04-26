@@ -72,6 +72,7 @@ func emptyInterfaceDemo() {
 	}
 
 }
+
 func main() {
 	var s Shape
 	s = Rectangle{10, 20}
